@@ -1,0 +1,30 @@
+<html>
+	<head>
+		<title>PsychSoc Collab: One Word Turing Test</title>
+	</head>
+	<body>
+		<div class="header">
+			<h1>Make a choice!</h1>
+		</div>
+		<div class="form">
+			<form method="POST" enctype="multipart/form-data">
+				<input type="hidden" name="choice" value="0">
+				<input type="submit" value="{{ entryOne }}">
+			</form>
+		</div>
+		<div class="form">
+			<form method="POST" enctype="multipart/form-data">
+				<input type="hidden" name="choice" value="1">
+				<input type="submit" value="{{ entryTwo }}">
+			</form>
+		</div>
+		{% if submitted == False %}
+			<div class="form">
+				<form action="/submit">
+					<input type="submit" value="Enter your own word">
+				</form>
+			</div>
+		{% endif %}
+	</body>
+</html>
+		

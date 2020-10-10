@@ -16,6 +16,7 @@ def create_app():
     db.init_app(app)
     jwt.init_app(app)
 
+    
     with app.app_context():
         # import parts of our application
         from . import token, crud, choose, submit
