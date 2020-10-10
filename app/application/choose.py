@@ -13,8 +13,6 @@ def index():
     # set session variables if not set already
     if "remaining" not in session:
         session["remaining"] = 5
-    if "submitted" not in session:
-        session["submitted"] = False
     
     if request.method == "POST":
         try:
@@ -30,7 +28,7 @@ def index():
             db.session.add(entry)
             db.session.commit()
         except Exception as e:
-            return redirect(request.url)
+            return render_template("error.html", message=str(e))
 
     if session["remaining"] > 0:
         # present user with two random choices
@@ -45,6 +43,6 @@ def index():
         session["entryTwo"] = entryTwo.word_id
 
         # we have everything ready to put it into an HTML template
-        return render_template("index.html", entryOne=entryOne.word_name, entryTwo=entryTwo.word_name, submitted=session["submitted"])
+        return render_template("index.html", entryOne=entryOne.word_name, entryTwo=entryTwo.word_name)
 
-    return render_template("error.html", message="You've now decided on the maximum number of choices.") 
+    return redirect("/submit")
