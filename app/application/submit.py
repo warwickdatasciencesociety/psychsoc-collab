@@ -18,7 +18,7 @@ def submit_word():
                 student_fname=request.form["student_fname"],
                 student_lname=request.form["student_lname"],
                 student_email=request.form["student_email"])
-            session["remaining"] = 5
+            session["submitted"] = True
             db.session.add(entry)
             db.session.commit()
             return redirect("/")
