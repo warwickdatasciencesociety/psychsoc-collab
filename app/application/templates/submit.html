@@ -94,7 +94,7 @@
 
 		function validateForm() 
 		{
-			if ($("#word_name").hasClass("is-danger")) {
+			if ($("#word_name").hasClass("is-danger") || !$("#word_name").val()) {
 				alert("Please enter a valid input");
 				return false;
 			}
