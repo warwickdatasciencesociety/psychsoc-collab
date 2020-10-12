@@ -13,6 +13,8 @@ def index():
     # set session variables if not set already
     if "remaining" not in session:
         session["remaining"] = 5
+    if "submitted" not in session:
+        session["submitted"] = False
     
     if request.method == "POST":
         try:
@@ -30,7 +32,7 @@ def index():
         except Exception as e:
             return render_template("error.html", message=str(e))
 
-    if session["remaining"] > 0:
+    if session["remaining"] > 0 or session["submitted"]:
         # present user with two random choices
         # get all of the entries first
         allEntries = Word.query.all()
