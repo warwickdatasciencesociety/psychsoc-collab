@@ -8,6 +8,7 @@ class Word(db.Model):
     student_lname = db.Column(db.String)
     student_email = db.Column(db.String)
     occurrences = db.Column(db.Integer)
+    verified = db.Column(db.Integer)
 
 class Pair(db.Model):
     __tablename__ = "pair"

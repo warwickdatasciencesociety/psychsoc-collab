@@ -37,7 +37,7 @@ def index():
     if session["remaining"] > 0 or session["submitted"]:
         # present user with two random choices
         # get all of the entries first
-        allEntries = Word.query.all()
+        allEntries = Word.query.filter_by(verified=1).all()
 
         chosenEntries = random.sample(allEntries, k=2)
         entryOne = chosenEntries[0]
