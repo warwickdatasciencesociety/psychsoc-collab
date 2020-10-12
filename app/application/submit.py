@@ -21,7 +21,7 @@ def submit_word():
                 db.session.commit()
                 return render_template("error.html", message="Word has already been submitted!")
             entry = Word(
-                word_name=request.form["word_name"],
+                word_name=request.form["word_name"].title(),
                 student_fname=request.form["student_fname"],
                 student_lname=request.form["student_lname"],
                 student_email=request.form["student_email"],
