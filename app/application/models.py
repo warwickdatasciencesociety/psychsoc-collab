@@ -7,12 +7,14 @@ class Word(db.Model):
     student_fname = db.Column(db.String)
     student_lname = db.Column(db.String)
     student_email = db.Column(db.String)
+    occurrences = db.Column(db.Integer)
 
 class Pair(db.Model):
     __tablename__ = "pair"
     pair_id = db.Column(db.Integer, primary_key=True)
     word1 = db.Column(db.Integer, db.ForeignKey("word.word_id"))
     word2 = db.Column(db.Integer, db.ForeignKey("word.word_id"))
+    is_left = db.Column(db.Integer)
 
 class Admin(db.Model):
     __tablename__ = "admin"
