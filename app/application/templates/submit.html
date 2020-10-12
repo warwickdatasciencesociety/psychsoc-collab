@@ -75,6 +75,7 @@
 	</footer>
 	
 	<script>
+		allLetter(document.wordform.word_name);
 		function allLetter(inputtxt)
 		{
 		var letters = /^[A-Za-z]+$/;
@@ -84,7 +85,7 @@
 			$(".valid_word").html("");
 			return true;
 			}
-		else
+		else if (!inputtxt.value.match(letters) && inputtxt.value.length > 0)
 			{
 			$(inputtxt).addClass("is-danger");
 			$(".valid_word").html("Please enter a valid word");
@@ -94,8 +95,13 @@
 
 		function validateForm() 
 		{
-			if ($("#word_name").hasClass("is-danger") || !$("#word_name").val()) {
-				alert("Please enter a valid input");
+			if ($("#word_name").hasClass("is-danger")) {
+				$(".valid_word").html("Please enter a valid word");
+				return false;
+			}
+			else if (!$("#word_name").val()) {
+				$("#word_name").addClass("is-danger");
+				$(".valid_word").html("Please enter a word");
 				return false;
 			}
 		}
