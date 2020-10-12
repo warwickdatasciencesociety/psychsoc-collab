@@ -12,7 +12,7 @@ choose_bp = Blueprint("choose_bp", __name__)
 def index():
     # set session variables if not set already
     if "remaining" not in session:
-        session["remaining"] = 5
+        session["remaining"] = 10
     if "submitted" not in session:
         session["submitted"] = False
     
@@ -47,6 +47,6 @@ def index():
         session["entryTwo"] = entryTwo.word_id
 
         # we have everything ready to put it into an HTML template
-        return render_template("index.html", entryOne=entryOne.word_name, entryTwo=entryTwo.word_name)
+        return render_template("index.html", entryOne=entryOne.word_name, entryTwo=entryTwo.word_name, remaining=session["remaining"], submitted=session["submitted"])
 
     return redirect("/submit")
