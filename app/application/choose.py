@@ -21,11 +21,13 @@ def index():
             if request.form["choice"] == "0":
                 entry = Pair(
                     word1=session["entryOne"],
-                    word2=session["entryTwo"])
+                    word2=session["entryTwo"],
+                    is_left=1)
             else:
                 entry = Pair(
                     word1=session["entryTwo"],
-                    word2=session["entryOne"])
+                    word2=session["entryOne"],
+                    is_left=0)
             session["remaining"] -= 1
             db.session.add(entry)
             db.session.commit()
