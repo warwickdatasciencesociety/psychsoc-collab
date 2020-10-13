@@ -28,11 +28,3 @@ def submit_word():
     # otherwise, get the submission page
     return render_template("submit.html")
 
-# an even simpler HTML form to ask if they want to submit another word
-@submit_bp.route("/goagain", methods=["GET", "POST"])
-def go_again():
-    if request.method == "POST":
-        if request.form["choice"] == "0":
-            return redirect("/submit")
-        return redirect("/")
-    return render_template("goagain.html")

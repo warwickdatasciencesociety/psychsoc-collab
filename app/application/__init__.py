@@ -19,11 +19,12 @@ def create_app():
     
     with app.app_context():
         # import parts of our application
-        from . import token, crud, choose, submit
+        from . import token, crud, choose, submit, privacy
 
         app.register_blueprint(token.token_bp)
         app.register_blueprint(crud.crud_bp)
         app.register_blueprint(choose.choose_bp)
         app.register_blueprint(submit.submit_bp)
+        app.register_blueprint(privacy.privacy_bp)
 
         return app
