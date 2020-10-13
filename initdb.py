@@ -46,9 +46,9 @@ mycursor.execute("DROP TABLE IF EXISTS pair")
 mycursor.execute("DROP TABLE IF EXISTS admin")
 mycursor.execute("SET FOREIGN_KEY_CHECKS = 1")
 mycursor.execute(
-    "CREATE TABLE word(word_id INT PRIMARY KEY AUTO_INCREMENT, word_name NVARCHAR(50), student_fname NVARCHAR(30), student_lname NVARCHAR(30), student_email NVARCHAR(50));"
+    "CREATE TABLE word(word_id INT PRIMARY KEY AUTO_INCREMENT, word_name NVARCHAR(50), student_fname NVARCHAR(30), student_lname NVARCHAR(30), student_email NVARCHAR(50), verified BIT);"
     )
-mycursor.execute("CREATE TABLE pair(pair_id INT PRIMARY KEY AUTO_INCREMENT, word1 INT, word2 INT, FOREIGN KEY(word1) REFERENCES word(word_id), FOREIGN KEY(word2) REFERENCES word(word_id));")
+mycursor.execute("CREATE TABLE pair(pair_id INT PRIMARY KEY AUTO_INCREMENT, word1 INT, word2 INT, is_left BIT, FOREIGN KEY(word1) REFERENCES word(word_id), FOREIGN KEY(word2) REFERENCES word(word_id));")
 mycursor.execute(
     "CREATE TABLE admin(admin_id INT PRIMARY KEY AUTO_INCREMENT, username VARCHAR(30), password BLOB, salt BLOB)")
 
@@ -73,7 +73,7 @@ val = ("admin", key, salt)
 mycursor.execute(sql, val)
 mydb.commit()
 
-sql = "INSERT INTO word (word_name, student_fname, student_lname, student_email) VALUES (%s, %s, %s, %s)"
+sql = "INSERT INTO word (word_name, student_fname, student_lname, student_email, verified) VALUES (%s, %s, %s, %s, 1)"
 for i in range(6):
     val = (str(i), str(i), str(i), str(i))
     mycursor.execute(sql, val)

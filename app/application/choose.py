@@ -25,8 +25,8 @@ def index():
                     is_left=1)
             else:
                 entry = Pair(
-                    word1=session["entryTwo"],
-                    word2=session["entryOne"],
+                    word1=session["entryOne"],
+                    word2=session["entryTwo"],
                     is_left=0)
             session["remaining"] -= 1
             db.session.add(entry)

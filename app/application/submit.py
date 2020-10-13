@@ -1,4 +1,4 @@
-from flask import Blueprint, request, redirect, render_template, session
+from flask import Blueprint, request, redirect, render_template, session, url_for
 from flask import current_app as app
 from .models import Word
 from . import db
@@ -13,24 +13,16 @@ def submit_word():
     # some rudimentary checks
     if request.method == "POST":
         try:
-            # see if the word already exists
-            existing = Word.query.filter_by(word_name=request.form["word_name"]).first()
-            if existing is not None:
-                # add to the counter and present an error message
-                existing.occurrences += 1
-                db.session.commit()
-                return render_template("error.html", message="Word has already been submitted!")
             entry = Word(
                 word_name=request.form["word_name"].title(),
                 student_fname=request.form["student_fname"],
                 student_lname=request.form["student_lname"],
                 student_email=request.form["student_email"],
-                occurrences=1,
                 verified=0)
             session["submitted"] = True
             db.session.add(entry)
             db.session.commit()
-            return redirect("/goagain")
+            return redirect(url_for("choose_bp.index"))
         except Exception as e:
             return render_template("error.html", message=str(e))
     # otherwise, get the submission page
