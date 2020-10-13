@@ -13,19 +13,11 @@ def submit_word():
     # some rudimentary checks
     if request.method == "POST":
         try:
-            # see if the word already exists
-            existing = Word.query.filter_by(word_name=request.form["word_name"]).first()
-            if existing is not None:
-                # add to the counter and present an error message
-                existing.occurrences += 1
-                db.session.commit()
-                return render_template("error.html", message="Word has already been submitted!")
             entry = Word(
                 word_name=request.form["word_name"].title(),
                 student_fname=request.form["student_fname"],
                 student_lname=request.form["student_lname"],
                 student_email=request.form["student_email"],
-                occurrences=1,
                 verified=0)
             session["submitted"] = True
             db.session.add(entry)
