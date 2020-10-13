@@ -14,7 +14,7 @@ class Pair(db.Model):
     pair_id = db.Column(db.Integer, primary_key=True)
     word1 = db.Column(db.Integer, db.ForeignKey("word.word_id"))
     word2 = db.Column(db.Integer, db.ForeignKey("word.word_id"))
-    is_left = db.Column(db.Integer)
+    is_left = db.Column(db.Boolean)
 
 class Admin(db.Model):
     __tablename__ = "admin"

@@ -22,12 +22,12 @@ def index():
                 entry = Pair(
                     word1=session["entryOne"],
                     word2=session["entryTwo"],
-                    is_left=1)
+                    is_left=True)
             else:
                 entry = Pair(
-                    word1=session["entryOne"],
-                    word2=session["entryTwo"],
-                    is_left=0)
+                    word1=session["entryTwo"],
+                    word2=session["entryOne"],
+                    is_left=False)
             session["remaining"] -= 1
             db.session.add(entry)
             db.session.commit()
