@@ -13,4 +13,4 @@ class Config:
     JWT_COOKIE_CSRF_PROTECT = False
     JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
 
-    SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://root:{os.getenv('DB_PASSWORD')}@db:3306/psych_collab"
+    SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://root:{os.getenv('SQL_ROOT_PASSWORD')}@db:3306/psych_collab"
