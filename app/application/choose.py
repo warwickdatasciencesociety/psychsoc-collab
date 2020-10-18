@@ -37,14 +37,32 @@ def index():
     if session["remaining"] > 0 or session["submitted"]:
         # present user with two random choices
         # get all of the entries first
-        allEntries = Word.query.filter_by(verified=1).all()
+        nonSeedEntries = Word.query.filter((Word.verified==1) & (Word.student_email!="seed")).all()
 
-        chosenEntries = random.sample(allEntries, k=2)
-        entryOne = chosenEntries[0]
-        entryTwo = chosenEntries[1]
+        seedEntries = Word.query.filter((Word.verified==1) & (Word.student_email=="seed")).all()
 
-        session["entryOne"] = entryOne.word_id
-        session["entryTwo"] = entryTwo.word_id
+        allEntries = nonSeedEntries + seedEntries
+
+        # create a weights list (order IS important)
+        weightedVals = list()
+
+        for entry in nonSeedEntries:
+            weightedVals.append(1/len(nonSeedEntries))
+
+        for entry in seedEntries:
+            weightedVals.append(1/len(seedEntries))
+
+        entryOne = ""
+        entryTwo = ""
+
+        while entryOne == entryTwo:
+
+            chosenEntries = random.choices(allEntries, weights=weightedVals, k=2)
+            entryOne = chosenEntries[0]
+            entryTwo = chosenEntries[1]
+
+            session["entryOne"] = entryOne.word_id
+            session["entryTwo"] = entryTwo.word_id
 
         # we have everything ready to put it into an HTML template
         return render_template("index.html", entryOne=entryOne.word_name, entryTwo=entryTwo.word_name, remaining=session["remaining"], submitted=session["submitted"])
